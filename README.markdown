@@ -38,6 +38,7 @@ The project source code is available on GitHub (in fact, you're most likely alre
     http://github.com/itaiferber/IFToolbarManager/
 
 The source code is bundled under an MIT license, so you're pretty much free to do with it as you wish.
+Sample icons included come from Marcelo Marfil's royalty-free 32px Corner Stone icon set. Shoutout for the great work!
 
 More Information
 ----------------
