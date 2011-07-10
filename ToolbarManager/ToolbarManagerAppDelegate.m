@@ -10,11 +10,26 @@
 
 @implementation ToolbarManagerAppDelegate
 
+#pragma mark - Synthesis
 @synthesize window = _window;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-	// Insert code here to initialize your application
+#pragma mark - Awake from Nib
+- (void)awakeFromNib {
+	_toolbar = [[NSToolbar alloc] initWithIdentifier:@"Toolbar"];
+	[_toolbar setAllowsUserCustomization:NO];
+	[_window setToolbar:_toolbar];
+	_manager = [[IFToolbarManager alloc] initWithToolbar:_toolbar identifier:@"Toolbar" delegate:self];
+}
+
+#pragma mark - Deallocation
+- (void)dealloc {
+	[_manager release], _manager = nil;
+	[_toolbar release], _toolbar = nil;
+}
+
+#pragma mark - Toolbar Customization Methods
+- (BOOL)toolbarShouldCenterToolbarItems:(NSToolbar *)theToolbar {
+	return YES;
 }
 
 @end

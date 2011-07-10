@@ -13,6 +13,13 @@
 		5CB7E1E813C78CA30057B61E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E1E613C78CA30057B61E /* Credits.rtf */; };
 		5CB7E1EB13C78CA30057B61E /* ToolbarManagerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E1EA13C78CA30057B61E /* ToolbarManagerAppDelegate.m */; };
 		5CB7E1EE13C78CA30057B61E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E1EC13C78CA30057B61E /* MainMenu.xib */; };
+		5CB7E1F613C78CB90057B61E /* IFToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E1F513C78CB90057B61E /* IFToolbarManager.m */; };
+		5CB7E1FF13C7A4430057B61E /* MAZeroingWeakRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E1FE13C7A4430057B61E /* MAZeroingWeakRef.m */; };
+		5CB7E20213C7A44E0057B61E /* IFToolbarPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E20113C7A44E0057B61E /* IFToolbarPane.m */; };
+		5CB7E20613C7AC550057B61E /* NSWindow+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E20513C7AC550057B61E /* NSWindow+Resizing.m */; };
+		5CB7E20813C7B0540057B61E /* Toolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E20713C7B0540057B61E /* Toolbar.xib */; };
+		5CB7E20A13C7B5A40057B61E /* Install.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E20913C7B5A40057B61E /* Install.icns */; };
+		5CB7E24313C7F81D0057B61E /* Restore.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E24213C7F81D0057B61E /* Restore.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +28,26 @@
 		5CB7E1DA13C78CA30057B61E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5CB7E1DB13C78CA30057B61E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5CB7E1DC13C78CA30057B61E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		5CB7E1DF13C78CA30057B61E /* ToolbarManager-Info.plist */ = {isa = PBXFileReference; path = "ToolbarManager-Info.plist"; sourceTree = "<group>"; };
+		5CB7E1DF13C78CA30057B61E /* ToolbarManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToolbarManager-Info.plist"; sourceTree = "<group>"; };
 		5CB7E1E113C78CA30057B61E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5CB7E1E313C78CA30057B61E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5CB7E1E513C78CA30057B61E /* ToolbarManager-Prefix.pch */ = {isa = PBXFileReference; path = "ToolbarManager-Prefix.pch"; sourceTree = "<group>"; };
+		5CB7E1E513C78CA30057B61E /* ToolbarManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToolbarManager-Prefix.pch"; sourceTree = "<group>"; };
 		5CB7E1E713C78CA30057B61E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		5CB7E1E913C78CA30057B61E /* ToolbarManagerAppDelegate.h */ = {isa = PBXFileReference; path = ToolbarManagerAppDelegate.h; sourceTree = "<group>"; };
+		5CB7E1E913C78CA30057B61E /* ToolbarManagerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarManagerAppDelegate.h; sourceTree = "<group>"; };
 		5CB7E1EA13C78CA30057B61E /* ToolbarManagerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolbarManagerAppDelegate.m; sourceTree = "<group>"; };
 		5CB7E1ED13C78CA30057B61E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		5CB7E1F413C78CB90057B61E /* IFToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFToolbarManager.h; sourceTree = "<group>"; };
+		5CB7E1F513C78CB90057B61E /* IFToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFToolbarManager.m; sourceTree = "<group>"; };
+		5CB7E1FD13C7A4430057B61E /* MAZeroingWeakRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAZeroingWeakRef.h; sourceTree = "<group>"; };
+		5CB7E1FE13C7A4430057B61E /* MAZeroingWeakRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAZeroingWeakRef.m; sourceTree = "<group>"; };
+		5CB7E20013C7A44E0057B61E /* IFToolbarPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFToolbarPane.h; sourceTree = "<group>"; };
+		5CB7E20113C7A44E0057B61E /* IFToolbarPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFToolbarPane.m; sourceTree = "<group>"; };
+		5CB7E20313C7A86C0057B61E /* IFToolbarManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFToolbarManagerDelegate.h; sourceTree = "<group>"; };
+		5CB7E20413C7AC550057B61E /* NSWindow+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+Resizing.h"; sourceTree = "<group>"; };
+		5CB7E20513C7AC550057B61E /* NSWindow+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Resizing.m"; sourceTree = "<group>"; };
+		5CB7E20713C7B0540057B61E /* Toolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Toolbar.xib; sourceTree = "<group>"; };
+		5CB7E20913C7B5A40057B61E /* Install.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Install.icns; sourceTree = "<group>"; };
+		5CB7E24213C7F81D0057B61E /* Restore.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Restore.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,10 +62,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C0E957013C9641B006EE913 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5CB7E20713C7B0540057B61E /* Toolbar.xib */,
+				5CB7E20913C7B5A40057B61E /* Install.icns */,
+				5CB7E24213C7F81D0057B61E /* Restore.icns */,
+			);
+			name = Resources;
+			path = ToolbarManager;
+			sourceTree = "<group>";
+		};
 		5CB7E1C813C78CA30057B61E = {
 			isa = PBXGroup;
 			children = (
 				5CB7E1DD13C78CA30057B61E /* ToolbarManager */,
+				5C0E957013C9641B006EE913 /* Resources */,
 				5CB7E1D613C78CA30057B61E /* Frameworks */,
 				5CB7E1D413C78CA30057B61E /* Products */,
 			);
@@ -86,6 +117,15 @@
 				5CB7E1EA13C78CA30057B61E /* ToolbarManagerAppDelegate.m */,
 				5CB7E1EC13C78CA30057B61E /* MainMenu.xib */,
 				5CB7E1DE13C78CA30057B61E /* Supporting Files */,
+				5CB7E1F413C78CB90057B61E /* IFToolbarManager.h */,
+				5CB7E1F513C78CB90057B61E /* IFToolbarManager.m */,
+				5CB7E20313C7A86C0057B61E /* IFToolbarManagerDelegate.h */,
+				5CB7E20013C7A44E0057B61E /* IFToolbarPane.h */,
+				5CB7E20113C7A44E0057B61E /* IFToolbarPane.m */,
+				5CB7E20413C7AC550057B61E /* NSWindow+Resizing.h */,
+				5CB7E20513C7AC550057B61E /* NSWindow+Resizing.m */,
+				5CB7E1FD13C7A4430057B61E /* MAZeroingWeakRef.h */,
+				5CB7E1FE13C7A4430057B61E /* MAZeroingWeakRef.m */,
 			);
 			path = ToolbarManager;
 			sourceTree = "<group>";
@@ -155,6 +195,9 @@
 				5CB7E1E213C78CA30057B61E /* InfoPlist.strings in Resources */,
 				5CB7E1E813C78CA30057B61E /* Credits.rtf in Resources */,
 				5CB7E1EE13C78CA30057B61E /* MainMenu.xib in Resources */,
+				5CB7E20813C7B0540057B61E /* Toolbar.xib in Resources */,
+				5CB7E20A13C7B5A40057B61E /* Install.icns in Resources */,
+				5CB7E24313C7F81D0057B61E /* Restore.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +210,10 @@
 			files = (
 				5CB7E1E413C78CA30057B61E /* main.m in Sources */,
 				5CB7E1EB13C78CA30057B61E /* ToolbarManagerAppDelegate.m in Sources */,
+				5CB7E1F613C78CB90057B61E /* IFToolbarManager.m in Sources */,
+				5CB7E1FF13C7A4430057B61E /* MAZeroingWeakRef.m in Sources */,
+				5CB7E20213C7A44E0057B61E /* IFToolbarPane.m in Sources */,
+				5CB7E20613C7AC550057B61E /* NSWindow+Resizing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +295,8 @@
 		5CB7E1F213C78CA30057B61E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToolbarManager/ToolbarManager-Prefix.pch";
 				INFOPLIST_FILE = "ToolbarManager/ToolbarManager-Info.plist";
@@ -259,6 +308,8 @@
 		5CB7E1F313C78CA30057B61E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToolbarManager/ToolbarManager-Prefix.pch";
 				INFOPLIST_FILE = "ToolbarManager/ToolbarManager-Info.plist";
@@ -286,6 +337,7 @@
 				5CB7E1F313C78CA30057B61E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

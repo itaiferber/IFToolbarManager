@@ -7,9 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IFToolbarManager.h"
 
-@interface ToolbarManagerAppDelegate : NSObject <NSApplicationDelegate> {
+@interface ToolbarManagerAppDelegate : NSObject <NSApplicationDelegate, IFToolbarManagerDelegate> {
 	NSWindow *_window;
+	NSToolbar *_toolbar;
+	IFToolbarManager *_manager;
 }
 
 @property (strong) IBOutlet NSWindow *window;
