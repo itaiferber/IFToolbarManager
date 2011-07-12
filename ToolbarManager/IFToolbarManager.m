@@ -61,6 +61,7 @@
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
 		_delegateReference = nil;
+		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -78,6 +79,7 @@
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
 		_delegateReference = nil;
+		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -95,6 +97,7 @@
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
 		_delegateReference = [[MAZeroingWeakRef alloc] initWithTarget:theDelegate];
+		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -108,8 +111,23 @@
 	[_toolbar release], _toolbar = nil;
 	[_itemIdentifiers release], _itemIdentifiers = nil;
 	[_toolbarPanes release], _toolbarPanes = nil;
-	[_delegateReference release];
+	[_delegateReference release], _delegateReference = nil;
+	_encapsulatedObjectReference = nil;
 	[super dealloc];
+}
+
+#pragma mark - Customized Access
+- (NSWindow *)window {
+	return [_toolbar valueForKey:@"_window"];
+}
+
+- (void)setEncapsulatedObject:(id)theObject {
+	[_encapsulatedObjectReference release];
+	_encapsulatedObjectReference = [[MAZeroingWeakRef alloc] initWithTarget:theObject];
+}
+
+- (id)encapsulatedObject {
+	return [_encapsulatedObjectReference target];
 }
 
 #pragma mark - Loading

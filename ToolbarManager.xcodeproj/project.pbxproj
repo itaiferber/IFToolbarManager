@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CA60F9913CBE11D0059F8DD /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 5CA60F9813CBE11D0059F8DD /* README.markdown */; };
 		5CB7E1D813C78CA30057B61E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CB7E1D713C78CA30057B61E /* Cocoa.framework */; };
 		5CB7E1E213C78CA30057B61E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7E1E013C78CA30057B61E /* InfoPlist.strings */; };
 		5CB7E1E413C78CA30057B61E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7E1E313C78CA30057B61E /* main.m */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5CA60F9813CBE11D0059F8DD /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = SOURCE_ROOT; };
 		5CB7E1D313C78CA30057B61E /* ToolbarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolbarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CB7E1D713C78CA30057B61E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5CB7E1DA13C78CA30057B61E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -65,6 +67,7 @@
 		5C0E957013C9641B006EE913 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5CA60F9813CBE11D0059F8DD /* README.markdown */,
 				5CB7E20713C7B0540057B61E /* Toolbar.xib */,
 				5CB7E20913C7B5A40057B61E /* Install.icns */,
 				5CB7E24213C7F81D0057B61E /* Restore.icns */,
@@ -198,6 +201,7 @@
 				5CB7E20813C7B0540057B61E /* Toolbar.xib in Resources */,
 				5CB7E20A13C7B5A40057B61E /* Install.icns in Resources */,
 				5CB7E24313C7F81D0057B61E /* Restore.icns in Resources */,
+				5CA60F9913CBE11D0059F8DD /* README.markdown in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,15 @@ The workflow of setting up a manager goes like this:
 
 If you've made a mistake along the way, and have set the manager's error reporting level to 1 (as opposed to 0), it will let you know about any errors it encounters (and attempts to recover from). If the error reporting level is set to 0, it will silently either ignore the affected areas (if allowed), attempt to repair the issue, or abort if no other option is available.
 
+Design Choices
+--------------
+
+The largest obstacle in designing `IFToolbarManager` was figuring out how to get .xib files to work correctly. Since Apple discontinued Interface Builder plugins in Xcode 4, custom Interface Builder objects are no longer allowed and permitting custom behavior inside of interface files is incredibly tricky. For that reason, different toolbar panes inhabit different .xib files instead of all fitting under a single file with custom code running it. The main issue with this is that linking intra-xib objects is impossible, or at least very difficult, and intra-xib bindings without any glue code are certainly not possible. For this reason, `IFToolbarManager` has an `encapsulatedObject` property that can be set programmatically by an interface controller from one .xib file and exposed to objects in another file. While access of this property will likely require a small controller class to be written for every 'dependent' .xib file (one that contains `IFToolbarPane`s), it allows for easy access, for instance, to an overarching interface controller found in the 'independent' .xib file (the file that contains the interface controller and the toolbar, e.g. "MainMenu.xib"). In other words, the `encapsulatedObject` property of a given `IFToolbarManager` can hold an instance of `MyUIController`, for custom access inside a dependent .xib file.
+
+While there is great power in this property, for the most part, in many cases it might not even be necessary. `IFToolbarManager` naturally exposes the `toolbar` and `window` properties to objects inside its .xib file, so toolbars running inside a modal window, for instance, have access to that window for closing without needing to 'talk' to a global UI controller. The `encapsulatedObject` property is there for whatever might be necessary to use it for, but is not required by everyone.
+
+This was a design choice made early on in the project, and while it might be revised in the future, it is foreseeably going to stay like this. Unless Apple will decide to reintroduce Interface Builder plugins, there is no direct need to change the foundations of the project, and more time will likely be invested into squashing bugs and other issues.
+
 App Store
 ---------
 
