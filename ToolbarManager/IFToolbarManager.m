@@ -133,15 +133,12 @@
 #pragma mark - Loading
 - (void)loadPanes {
 	id <IFToolbarManagerDelegate> delegate = [_delegateReference target];
-	NSString *path = nil;
-	if (delegate && [delegate respondsToSelector:@selector(toolbarAssociatedXibName:)]) {
-		path = [delegate toolbarAssociatedXibName:_toolbar];
+	NSString *path = _identifier;
+	if (delegate && [delegate respondsToSelector:@selector(toolbarAssociatedXibName:)] && (path = [delegate toolbarAssociatedXibName:_toolbar])) {
 		if (![[NSBundle mainBundle] pathForResource:path ofType:@"nib"]) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbarAssociatedXibName:`. Attempting default value (%@).", path, _identifier);
 			path = _identifier;
 		}
-	} else {
-		path = _identifier;
 	}
 	
 	if (![[NSBundle mainBundle] pathForResource:path ofType:@"nib"]) {
@@ -183,15 +180,12 @@
 	}
 	
 	if ([_toolbarPanes count] > 0) {
-		NSString *identifier = nil;
-		if (delegate && [delegate respondsToSelector:@selector(toolbarDefaultSelectedItemIdentifier:)]) {
-			identifier = [delegate toolbarDefaultSelectedItemIdentifier:_toolbar];
+		NSString *identifier = [_itemIdentifiers objectAtIndex:0];
+		if (delegate && [delegate respondsToSelector:@selector(toolbarDefaultSelectedItemIdentifier:)] && (identifier = [delegate toolbarDefaultSelectedItemIdentifier:_toolbar])) {
 			if (!identifier || ![self toolbarPaneWithIdentifier:identifier]) {
 				IFLog(@"Delegate responded with an invalid value (%@) for `toolbarDefaultSelectedItemIdentifier:`. Attempting default value (%@).", identifier, [_itemIdentifiers objectAtIndex:0]);
 				identifier = [_itemIdentifiers objectAtIndex:0];
 			}
-		} else {
-			identifier = [_itemIdentifiers objectAtIndex:0];
 		}
 		
 		[self selectToolbarItemWithIdentifier:identifier];
@@ -284,29 +278,25 @@
 	[item setAutovalidates:YES];
 	
 	id <IFToolbarManagerDelegate> delegate = [_delegateReference target];
-	NSString *label = nil;
-	if (delegate && [delegate respondsToSelector:@selector(toolbar:labelForItemWithIdentifier:)]) {
-		label = [delegate toolbar:_toolbar labelForItemWithIdentifier:itemIdentifier];
+	NSString *label = itemIdentifier;
+	if (delegate && [delegate respondsToSelector:@selector(toolbar:labelForItemWithIdentifier:)] && (label = [delegate toolbar:_toolbar labelForItemWithIdentifier:itemIdentifier])) {
 		if (!label) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbar:labelForItemWithIdentifier`. Attempting with default value (%@).", label, itemIdentifier);
 			label = itemIdentifier;
 		}
-	} else {
-		label = itemIdentifier;
 	}
+	
 	[item setLabel:label];
 	[item setPaletteLabel:label];
 	
-	NSImage *image = nil;
-	if (delegate && [delegate respondsToSelector:@selector(toolbar:imageForItemWithIdentifier:)]) {
-		image = [delegate toolbar:_toolbar imageForItemWithIdentifier:itemIdentifier];
+	NSImage *image = [NSImage imageNamed:itemIdentifier];
+	if (delegate && [delegate respondsToSelector:@selector(toolbar:imageForItemWithIdentifier:)] && (image = [delegate toolbar:_toolbar imageForItemWithIdentifier:itemIdentifier])) {
 		if (!image) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbar:imageForItemWithIdentifier:`. Attempting with default value (%@).", image, [NSImage imageNamed:itemIdentifier]);
 			image = [NSImage imageNamed:itemIdentifier];
 		}
-	} else {
-		image = [NSImage imageNamed:itemIdentifier];
 	}
+	
 	[item setImage:image];
 	
 	return item;
