@@ -7,6 +7,7 @@
 
 #import "MAZeroingWeakRef.h"
 
+#if !__has_feature(objc_arc)
 #import <dlfcn.h>
 #import <libkern/OSAtomic.h>
 #import <objc/runtime.h>
@@ -525,3 +526,4 @@ static void UnregisterRef(MAZeroingWeakRef *ref)
 }
 
 @end
+#endif

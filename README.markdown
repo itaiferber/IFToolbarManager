@@ -7,7 +7,7 @@ Introduction
 
 `IFToolbarManager`, for the most part, does a lot of the necessary work on its own. Once you've got everything set up the way you'd like it, all you have to do is create a manager with a toolbar (that is the bare minimum necessary; for customization, it is recommended that you also supply a delegate) and the rest of the work is done for you.
 
-`IFToolbarManager` uses Mike Ash's [`MAZeroingWeakRef`](https://github.com/mikeash/MAZeroingWeakRef), and includes the files along with a copy of their BSD license. No customization is necessary, just a copy of `MAZeroingWeakRef.h` and `MAZeroingWeakRef.m` will suffice.
+`IFToolbarManager` uses Mike Ash's [`MAZeroingWeakRef`](https://github.com/mikeash/MAZeroingWeakRef), and includes the files along with a copy of their BSD license. No customization is necessary, just a copy of `MAZeroingWeakRef.h` and `MAZeroingWeakRef.m` will suffice (the files have been edited very slightly to behave differently if Automatic Reference Counting is turned on - read the ARC section for more info).
 
 Setup
 -----
@@ -37,7 +37,7 @@ This was a design choice made early on in the project, and while it might be rev
 Automatic Reference Counting
 ----------------------------
 
-This project is compatible with Clang's Automatic Reference Counting feature, available in Apple Clang 3.0 (included in Xcode 4.2). If the `__has_feature(objc_arc)` macro expands to 1 in the preprocessor, all `-retain`, `-release`, and `-autorelease` calls will be removed from the file and replaced with equivalent ARC-compatible code. Because ARC allows for the use of the `__weak` specifier, `MAZeroingWeakRef` is not needed for weak references, and since `MAZeroingWeakRef` will not compile under ARC, it must be removed from the project if ARC is turned on.
+This project is compatible with Clang's Automatic Reference Counting feature, available in Apple Clang 3.0 (included in Xcode 4.2). If the `__has_feature(objc_arc)` macro expands to 1 in the preprocessor, all `-retain`, `-release`, and `-autorelease` calls will be removed from the file and replaced with equivalent ARC-compatible code. Because ARC allows for the use of the `__weak` specifier, `MAZeroingWeakRef` is not needed for weak references, and since `MAZeroingWeakRef` will not compile under ARC, it has been modified to not compile if ARC is turned on. You may even remove MAZeroingWeakRef completely from the project if you have ARC turned on to slim the project down.
 
 App Store
 ---------
