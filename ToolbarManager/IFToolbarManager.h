@@ -112,7 +112,7 @@
  @param theToolbar the toolbar to manage (precondition: theToolbar != nil)
  @return a new toolbar manager
  */
-- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar;
+- (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar;
 
 /*!
  Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil. If the given identifier is nil, the manager
@@ -121,7 +121,7 @@
  @param theIdentifier the identifier to use
  @return a new toolbar manager with the given identifier
  */
-- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar identifier:(NSString *)__attribute((ns_consumed)) theIdentifier;
+- (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar identifier:(NSString *)__attribute__((ns_consumed)) theIdentifier;
 
 /*!
  Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil. If the given identifier is nil, the manager
@@ -131,7 +131,7 @@
  @param theDelegate the delegate to message
  @return a new toolbar manager with the given identifier and delegate
  */
-- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar identifier:(NSString *)__attribute((ns_consumed)) theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate;
+- (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar identifier:(NSString *)__attribute__((ns_consumed)) theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate;
 
 /*!
  Selects the pane of the next item on the toolbar. Does nothing if the last item is currently selected. Exposed to be used in Interface
