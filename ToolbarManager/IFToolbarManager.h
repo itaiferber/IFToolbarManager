@@ -92,8 +92,8 @@
 	__strong NSMutableArray *_toolbarPanes;
 	
 #if __has_feature(objc_arc)
-	__unsafe_unretained id _delegate;
-	__unsafe_unretained id _encapsulatedObject;
+	__weak id _delegate;
+	__weak id _encapsulatedObject;
 #else
 	__strong MAZeroingWeakRef *_delegateReference;
 	__strong MAZeroingWeakRef *_encapsulatedObjectReference;

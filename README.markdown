@@ -37,7 +37,7 @@ This was a design choice made early on in the project, and while it might be rev
 Automatic Reference Counting
 ----------------------------
 
-This project is compatible with Clang's Automatic Reference Counting feature, available in Apple Clang 3.0 (included in Xcode 4.2). If the `__has_feature(objc_arc)` macro expands to 1 in the preprocessor, all `-retain`, `-release`, and `-autorelease` calls will be removed from the file and replaced with equivalent ARC-compatible code. Because `MAZeroingWeakRef` is not compatible with ARC, code has been put in place to replace it, and `MAZeroingWeakRef` can be safely excluded from the project (it will not compile under ARC otherwise).
+This project is compatible with Clang's Automatic Reference Counting feature, available in Apple Clang 3.0 (included in Xcode 4.2). If the `__has_feature(objc_arc)` macro expands to 1 in the preprocessor, all `-retain`, `-release`, and `-autorelease` calls will be removed from the file and replaced with equivalent ARC-compatible code. Because ARC allows for the use of the `__weak` specifier, `MAZeroingWeakRef` is not needed for weak references, and since `MAZeroingWeakRef` will not compile under ARC, it must be removed from the project if ARC is turned on.
 
 App Store
 ---------
