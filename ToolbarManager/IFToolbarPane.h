@@ -59,7 +59,7 @@
 	__strong NSNumber *_tag;
 }
 
-@property (assign) IBOutlet NSView *view;
+@property (weak) IBOutlet NSView *view;
 @property (readonly) NSString *identifier;
 @property (readonly) NSNumber *tag;
 

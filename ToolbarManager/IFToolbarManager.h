@@ -104,8 +104,8 @@
 @property (readonly) NSToolbar *toolbar;
 @property (readonly) NSWindow *window;
 @property (readonly) NSUInteger selectedTag;
-@property (assign) id <IFToolbarManagerDelegate> delegate;
-@property (assign) id encapsulatedObject;
+@property (weak) id <IFToolbarManagerDelegate> delegate;
+@property (weak) id encapsulatedObject;
 
 /*!
  Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil.
