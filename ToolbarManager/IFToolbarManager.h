@@ -43,11 +43,9 @@
  applications to avoid logging). Setting it to 1 will alert you when IFToolbarManager encounters an error (this is highly  recommended for
  debugging issues which are difficult to test in GUI applications.
  */
-#ifdef IF_ERROR_REPORTING_LEVEL
-#undef IF_ERROR_REPORTING_LEVEL
-#endif
-
+#ifndef IF_ERROR_REPORTING_LEVEL
 #define IF_ERROR_REPORTING_LEVEL 1
+#endif
 
 /*!
  @class IFToolbarManager
