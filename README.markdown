@@ -34,6 +34,11 @@ While there is great power in this property, for the most part, in many cases it
 
 This was a design choice made early on in the project, and while it might be revised in the future, it is foreseeably going to stay like this. Unless Apple will decide to reintroduce Interface Builder plugins, there is no direct need to change the foundations of the project, and more time will likely be invested into squashing bugs and other issues.
 
+Automatic Reference Counting
+----------------------------
+
+This project is compatible with Clang's Automatic Reference Counting feature, available in Apple Clang 3.0 (included in Xcode 4.2). If the __has_feature(objc_arc) macro expands to 1 in the preprocessor, all `-retain`, `-release`, and `-autorelease` calls will be removed from the file and replaced with equivalent ARC-compatible code. Because MAZeroingWeakRef is not compatible with ARC, code has been put in place to replace it, and MAZeroingWeakRef can be safely excluded from the project (it will not compile under ARC otherwise).
+
 App Store
 ---------
 

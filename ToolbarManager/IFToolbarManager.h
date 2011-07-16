@@ -32,7 +32,10 @@
 #import "IFToolbarManagerDelegate.h"
 #import "IFToolbarPane.h"
 #import "NSWindow+Resizing.h"
+
+#if !__has_feature(objc_arc)
 #import "MAZeroingWeakRef.h"
+#endif
 
 /*
  The IF_ERROR_REPORTING_LEVEL macro allows you to set the level at which IFToolbarManager reports the errors from which it recovers. Setting
@@ -81,14 +84,20 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @interface IFToolbarManager : NSObject <NSToolbarDelegate> {
-	NSString *_identifier;
-	NSToolbar *_toolbar;
+	__strong NSString *_identifier;
+	__strong NSToolbar *_toolbar;
 	NSUInteger _selectedTag;
 	
-	NSMutableArray *_itemIdentifiers;
-	NSMutableArray *_toolbarPanes;
-	MAZeroingWeakRef *_delegateReference;
-	MAZeroingWeakRef *_encapsulatedObjectReference;
+	__strong NSMutableArray *_itemIdentifiers;
+	__strong NSMutableArray *_toolbarPanes;
+	
+#if __has_feature(objc_arc)
+	__unsafe_unretained id _delegate;
+	__unsafe_unretained id _encapsulatedObject;
+#else
+	__strong MAZeroingWeakRef *_delegateReference;
+	__strong MAZeroingWeakRef *_encapsulatedObjectReference;
+#endif
 }
 
 @property (readonly) NSString *identifier;
@@ -103,7 +112,7 @@
  @param theToolbar the toolbar to manage (precondition: theToolbar != nil)
  @return a new toolbar manager
  */
-- (id)initWithToolbar:(NSToolbar *)theToolbar;
+- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar;
 
 /*!
  Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil. If the given identifier is nil, the manager
@@ -112,7 +121,7 @@
  @param theIdentifier the identifier to use
  @return a new toolbar manager with the given identifier
  */
-- (id)initWithToolbar:(NSToolbar *)theToolbar identifier:(NSString *)theIdentifier;
+- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar identifier:(NSString *)__attribute((ns_consumed)) theIdentifier;
 
 /*!
  Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil. If the given identifier is nil, the manager
@@ -122,7 +131,7 @@
  @param theDelegate the delegate to message
  @return a new toolbar manager with the given identifier and delegate
  */
-- (id)initWithToolbar:(NSToolbar *)theToolbar identifier:(NSString *)theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate;
+- (id)initWithToolbar:(NSToolbar *)__attribute((ns_consumed)) theToolbar identifier:(NSString *)__attribute((ns_consumed)) theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate;
 
 /*!
  Selects the pane of the next item on the toolbar. Does nothing if the last item is currently selected. Exposed to be used in Interface
@@ -140,7 +149,7 @@
 
 /*!
  If a toolbar item with the given identifier exists in the managed toolbar, it will be selected. Logs a message if such an item doesn't
- exist, and IF_ERROR_REPORTING_LEVEL is set to 1
+ exist, and IF_ERROR_REPORTING_LEVEL is set to 1.
  @param theIdentifier the identifier to select (precondition: theIdentifier != nil)
  */
 - (void)selectToolbarItemWithIdentifier:(NSString *)theIdentifier;

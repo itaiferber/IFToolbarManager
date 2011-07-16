@@ -54,9 +54,9 @@
  */
 @class IFToolbarManager;
 @interface IFToolbarPane : NSObject {
-	NSView *_view;
-	NSString *_identifier;
-	NSNumber *_tag;
+	__unsafe_unretained NSView *_view;
+	__strong NSString *_identifier;
+	__strong NSNumber *_tag;
 }
 
 @property (assign) IBOutlet NSView *view;

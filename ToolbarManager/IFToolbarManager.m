@@ -55,13 +55,19 @@
 	if (!theToolbar) return nil;
 	if ((self = [super init])) {
 		_identifier = [[theToolbar identifier] copy];
+#if __has_feature(objc_arc)
+		_toolbar = theToolbar;
+		_delegate = nil;
+		_encapsulatedObject = nil;
+#else
 		_toolbar = [theToolbar retain];
+		_delegateReference = nil;
+		_encapsulatedObjectReference = nil;
+#endif
 		[_toolbar setDelegate:self];
 		_selectedTag = 0;
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
-		_delegateReference = nil;
-		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -73,13 +79,19 @@
 	if (!theToolbar) return nil;
 	if ((self = [super init])) {
 		_identifier = theIdentifier ? [theIdentifier copy] : [[theToolbar identifier] copy];
+#if __has_feature(objc_arc)
+		_toolbar = theToolbar;
+		_delegate = nil;
+		_encapsulatedObject = nil;
+#else
 		_toolbar = [theToolbar retain];
+		_delegateReference = nil;
+		_encapsulatedObjectReference = nil;
+#endif
 		[_toolbar setDelegate:self];
 		_selectedTag = 0;
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
-		_delegateReference = nil;
-		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -91,13 +103,19 @@
 	if (!theToolbar) return nil;
 	if ((self = [super init])) {
 		_identifier = theIdentifier ? [theIdentifier copy] : [[theToolbar identifier] copy];
+#if __has_feature(objc_arc)
+		_toolbar = theToolbar;
+		_delegate = theDelegate;
+		_encapsulatedObject = nil;
+#else
 		_toolbar = [theToolbar retain];
+		_delegateReference = [[MAZeroingWeakRef alloc] initWithTarget:theDelegate];
+		_encapsulatedObjectReference = nil;
+#endif
 		[_toolbar setDelegate:self];
 		_selectedTag = 0;
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
-		_delegateReference = [[MAZeroingWeakRef alloc] initWithTarget:theDelegate];
-		_encapsulatedObjectReference = nil;
 		
 		[self loadPanes];
 	}
@@ -107,13 +125,25 @@
 
 #pragma mark - Deallocation
 - (void)dealloc {
-	[_identifier release], _identifier = nil;
-	[_toolbar release], _toolbar = nil;
-	[_itemIdentifiers release], _itemIdentifiers = nil;
-	[_toolbarPanes release], _toolbarPanes = nil;
-	[_delegateReference release], _delegateReference = nil;
+#if !__has_feature(objc_arc)
+	[_identifier release];
+	[_toolbar release];
+	[_itemIdentifiers release];
+	[_toolbarPanes release];
+	[_delegateReference release];
+#endif
+	_identifier = nil;
+	_toolbar = nil;
+	_itemIdentifiers = nil;
+	_toolbarPanes = nil;
+#if __has_feature(objc_arc)
+	_delegate = nil;
+	_encapsulatedObject = nil;
+#else
+	_delegateReference = nil;
 	_encapsulatedObjectReference = nil;
 	[super dealloc];
+#endif
 }
 
 #pragma mark - Customized Access
@@ -122,24 +152,38 @@
 }
 
 - (void)setEncapsulatedObject:(id)theObject {
+#if __has_feature(objc_arc)
+	_encapsulatedObject = theObject;
+#else
 	[_encapsulatedObjectReference release];
 	_encapsulatedObjectReference = [[MAZeroingWeakRef alloc] initWithTarget:theObject];
+#endif
 }
 
 - (id)encapsulatedObject {
+#if __has_feature(objc_arc)
+	return _encapsulatedObject;
+#else
 	return [_encapsulatedObjectReference target];
+#endif
 }
 
 #pragma mark - Loading
 - (void)loadPanes {
+#if __has_feature(objc_arc)
+	id <IFToolbarManagerDelegate> delegate = _delegate;
+#else
 	id <IFToolbarManagerDelegate> delegate = [_delegateReference target];
-	NSString *path = _identifier;
-	if (delegate && [delegate respondsToSelector:@selector(toolbarAssociatedXibName:)] && (path = [delegate toolbarAssociatedXibName:_toolbar])) {
+#endif
+	NSString *path = nil;
+	if (delegate && [delegate respondsToSelector:@selector(toolbarAssociatedXibName:)]) {
+		path = [delegate toolbarAssociatedXibName:_toolbar];
 		if (![[NSBundle mainBundle] pathForResource:path ofType:@"nib"]) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbarAssociatedXibName:`. Attempting default value (%@).", path, _identifier);
-			path = _identifier;
+			path = nil;
 		}
 	}
+	if (!path) path = _identifier;
 	
 	if (![[NSBundle mainBundle] pathForResource:path ofType:@"nib"]) {
 		IFLog(@"Could not locate default %@.xib. Aborting.", path);
@@ -180,13 +224,15 @@
 	}
 	
 	if ([_toolbarPanes count] > 0) {
-		NSString *identifier = [_itemIdentifiers objectAtIndex:0];
-		if (delegate && [delegate respondsToSelector:@selector(toolbarDefaultSelectedItemIdentifier:)] && (identifier = [delegate toolbarDefaultSelectedItemIdentifier:_toolbar])) {
+		NSString *identifier = nil;
+		if (delegate && [delegate respondsToSelector:@selector(toolbarDefaultSelectedItemIdentifier:)]) {
+			identifier = [delegate toolbarDefaultSelectedItemIdentifier:_toolbar];
 			if (!identifier || ![self toolbarPaneWithIdentifier:identifier]) {
 				IFLog(@"Delegate responded with an invalid value (%@) for `toolbarDefaultSelectedItemIdentifier:`. Attempting default value (%@).", identifier, [_itemIdentifiers objectAtIndex:0]);
-				identifier = [_itemIdentifiers objectAtIndex:0];
+				identifier = nil;
 			}
 		}
+		if (!identifier) identifier = [_itemIdentifiers objectAtIndex:0];
 		
 		[self selectToolbarItemWithIdentifier:identifier];
 		
@@ -258,48 +304,67 @@
 
 #pragma mark - Delegate Methods
 - (void)setDelegate:(id <IFToolbarManagerDelegate>)theDelegate {
+#if __has_feature(objc_arc)
+	_delegate = theDelegate;
+#else
 	[_delegateReference release];
 	_delegateReference = [[MAZeroingWeakRef alloc] initWithTarget:theDelegate];
+#endif
 }
 
 - (id)delegate {
+#if __has_feature(objc_arc)
+	return _delegate;
+#else
 	return [_delegateReference target];
+#endif
 }
 
 #pragma mark - NSToolbarDelegate Methods
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
 	if (![toolbar isEqual:_toolbar]) return nil;
 	
-	NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	if ([itemIdentifier isEqualToString:NSToolbarSeparatorItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarSpaceItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarFlexibleSpaceItemIdentifier]) return item;
 	[item setTarget:self];
 	[item setAction:@selector(selectToolbarItem:)];
 	[item setTag:[[self toolbarPaneWithIdentifier:itemIdentifier].tag unsignedIntegerValue]];
 	[item setAutovalidates:YES];
 	
+#if __has_feature(objc_arc)
+	id <IFToolbarManagerDelegate> delegate = _delegate;
+#else
 	id <IFToolbarManagerDelegate> delegate = [_delegateReference target];
-	NSString *label = itemIdentifier;
-	if (delegate && [delegate respondsToSelector:@selector(toolbar:labelForItemWithIdentifier:)] && (label = [delegate toolbar:_toolbar labelForItemWithIdentifier:itemIdentifier])) {
+#endif
+	NSString *label = nil;
+	if (delegate && [delegate respondsToSelector:@selector(toolbar:labelForItemWithIdentifier:)]) {
+		label = [delegate toolbar:_toolbar labelForItemWithIdentifier:itemIdentifier];
 		if (!label) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbar:labelForItemWithIdentifier`. Attempting with default value (%@).", label, itemIdentifier);
-			label = itemIdentifier;
+			label = nil;
 		}
 	}
+	if (!label) label = itemIdentifier;
 	
 	[item setLabel:label];
 	[item setPaletteLabel:label];
 	
-	NSImage *image = [NSImage imageNamed:itemIdentifier];
-	if (delegate && [delegate respondsToSelector:@selector(toolbar:imageForItemWithIdentifier:)] && (image = [delegate toolbar:_toolbar imageForItemWithIdentifier:itemIdentifier])) {
+	NSImage *image = nil;
+	if (delegate && [delegate respondsToSelector:@selector(toolbar:imageForItemWithIdentifier:)]) {
+		image = [delegate toolbar:_toolbar imageForItemWithIdentifier:itemIdentifier];
 		if (!image) {
 			IFLog(@"Delegate responded with an invalid value (%@) for `toolbar:imageForItemWithIdentifier:`. Attempting with default value (%@).", image, [NSImage imageNamed:itemIdentifier]);
-			image = [NSImage imageNamed:itemIdentifier];
+			image = nil;
 		}
 	}
+	if (!image) image = [NSImage imageNamed:itemIdentifier];
 	
 	[item setImage:image];
-	
+#if __has_feature(objc_arc)
 	return item;
+#else
+	return [item autorelease];
+#endif
 }
 
 - (void)toolbarWillAddItem:(NSNotification *)notification {
@@ -326,7 +391,7 @@
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem {
-	return (BOOL)([self toolbarPaneWithIdentifier:[theItem itemIdentifier]]);
+	return !![self toolbarPaneWithIdentifier:[theItem itemIdentifier]];
 }
 
 #pragma mark - Description
