@@ -37,7 +37,6 @@
 #endif
 
 @interface IFToolbarManager ()
-- (void)loadPanes;
 - (IFToolbarPane *)toolbarPaneWithIdentifier:(NSString *)theIdentifier;
 - (IFToolbarPane *)selectedPane;
 - (void)selectToolbarItem:(NSToolbarItem *)theItem;
@@ -68,8 +67,6 @@
 		_selectedTag = 0;
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
-		
-		[self loadPanes];
 	}
 	
 	return self;
@@ -92,32 +89,6 @@
 		_selectedTag = 0;
 		_itemIdentifiers = [[NSMutableArray alloc] init];
 		_toolbarPanes = [[NSMutableArray alloc] init];
-		
-		[self loadPanes];
-	}
-	
-	return self;
-}
-
-- (id)initWithToolbar:(NSToolbar *)theToolbar identifier:(NSString *)theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate {
-	if (!theToolbar) return nil;
-	if ((self = [super init])) {
-		_identifier = theIdentifier ? [theIdentifier copy] : [[theToolbar identifier] copy];
-#if __has_feature(objc_arc)
-		_toolbar = theToolbar;
-		_delegate = theDelegate;
-		_encapsulatedObject = nil;
-#else
-		_toolbar = [theToolbar retain];
-		_delegateReference = [[MAZeroingWeakRef alloc] initWithTarget:theDelegate];
-		_encapsulatedObjectReference = nil;
-#endif
-		[_toolbar setDelegate:self];
-		_selectedTag = 0;
-		_itemIdentifiers = [[NSMutableArray alloc] init];
-		_toolbarPanes = [[NSMutableArray alloc] init];
-		
-		[self loadPanes];
 	}
 	
 	return self;
@@ -169,7 +140,7 @@
 }
 
 #pragma mark - Loading
-- (void)loadPanes {
+- (void)load {
 #if __has_feature(objc_arc)
 	id <IFToolbarManagerDelegate> delegate = _delegate;
 #else

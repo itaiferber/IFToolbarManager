@@ -122,14 +122,9 @@
 - (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar identifier:(NSString *)__attribute__((ns_consumed)) theIdentifier;
 
 /*!
- Creates a new toolbar manager with the given toolbar. Returns nil if the given toolbar is nil. If the given identifier is nil, the manager
- will use the toolbar's identifier as its own. The manager will employ the delegate to provide any customization options.
- @param theToolbar the toolbar to manage (precondition: theToolbar != nil)
- @param theIdentifier the identifier to use
- @param theDelegate the delegate to message
- @return a new toolbar manager with the given identifier and delegate
+ Initializes the toolbar manager's state, loads the associated xib file and panes, and uses the newly loaded panes to populate the toolbar.
  */
-- (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar identifier:(NSString *)__attribute__((ns_consumed)) theIdentifier delegate:(id <IFToolbarManagerDelegate>)theDelegate;
+- (void)load;
 
 /*!
  Selects the pane of the next item on the toolbar. Does nothing if the last item is currently selected. Exposed to be used in Interface

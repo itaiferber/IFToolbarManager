@@ -18,7 +18,9 @@
 	_toolbar = [[NSToolbar alloc] initWithIdentifier:@"Toolbar"];
 	[_toolbar setAllowsUserCustomization:NO];
 	[_window setToolbar:_toolbar];
-	_manager = [[IFToolbarManager alloc] initWithToolbar:_toolbar identifier:@"Toolbar" delegate:self];
+	_manager = [[IFToolbarManager alloc] initWithToolbar:_toolbar];
+	_manager.delegate = self;
+	[_manager load];
 }
 
 #pragma mark - Deallocation
