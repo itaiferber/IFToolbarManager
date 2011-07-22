@@ -250,6 +250,16 @@
 	_selectedTag = [[self toolbarPaneWithIdentifier:theIdentifier].tag unsignedIntegerValue];
 }
 
+- (void)selectToolbarItemAtIndex:(NSUInteger)theIndex {
+	NSArray *selectableIdentifiers = [self toolbarSelectableItemIdentifiers:_toolbar];
+	if (theIndex >= [selectableIdentifiers count]) {
+		IFLog(@"Selection index is not valid (%lu > %lu). Aborting.", theIndex, [selectableIdentifiers count]);
+		return;
+	}
+	
+	[self selectToolbarItemWithIdentifier:[selectableIdentifiers objectAtIndex:theIndex]];
+}
+
 - (IBAction)selectNextPane:(id)sender {
 	NSUInteger selectedIndex = [_toolbarPanes indexOfObject:[self selectedPane]];
 	if (selectedIndex < [_toolbarPanes count] - 1) {
@@ -296,7 +306,13 @@
 	if (![toolbar isEqual:_toolbar]) return nil;
 	
 	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-	if ([itemIdentifier isEqualToString:NSToolbarSeparatorItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarSpaceItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarFlexibleSpaceItemIdentifier]) return item;
+	if ([itemIdentifier isEqualToString:NSToolbarSeparatorItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarSpaceItemIdentifier] || [itemIdentifier isEqualToString:NSToolbarFlexibleSpaceItemIdentifier]) {
+#if __has_feature(objc_arc)
+		return item;
+#else
+		return [item autorelease];
+#endif
+	}
 	[item setTarget:self];
 	[item setAction:@selector(selectToolbarItem:)];
 	[item setTag:[[self toolbarPaneWithIdentifier:itemIdentifier].tag unsignedIntegerValue]];
@@ -362,6 +378,12 @@
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem {
+#if __has_feature(objc_arc)
+	id <IFToolbarManagerDelegate> delegate = _delegate;
+#else
+	id <IFToolbarManagerDelegate> delegate = [_delegateReference target];
+#endif
+	if (delegate && [delegate respondsToSelector:@selector(toolbar:shouldValidateItem:)] && ![delegate toolbar:_toolbar shouldValidateItem:theItem]) return NO;
 	return !![self toolbarPaneWithIdentifier:[theItem itemIdentifier]];
 }
 

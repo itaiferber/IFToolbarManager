@@ -122,7 +122,7 @@
 - (id)initWithToolbar:(NSToolbar *)__attribute__((ns_consumed)) theToolbar identifier:(NSString *)__attribute__((ns_consumed)) theIdentifier;
 
 /*!
- Initializes the toolbar manager's state, loads the associated xib file and panes, and uses the newly loaded panes to populate the toolbar.
+ Initializes the toolbar manager's state and loads the associated xib file and panes.
  */
 - (void)load;
 
@@ -142,9 +142,16 @@
 
 /*!
  If a toolbar item with the given identifier exists in the managed toolbar, it will be selected. Logs a message if such an item doesn't
- exist, and IF_ERROR_REPORTING_LEVEL is set to 1.
+ exist, and if IF_ERROR_REPORTING_LEVEL is set to 1.
  @param theIdentifier the identifier to select (precondition: theIdentifier != nil)
  */
 - (void)selectToolbarItemWithIdentifier:(NSString *)theIdentifier;
+
+/*!
+ If the given index returns a valid toolbar item, it will be selected. Logs a message if such an item doesn't exit, and if 
+ IF_ERROR_REPORTING_LEVEL is set to 1.
+ @param theIndex the index to select (precondition: the index is valid)
+ */
+- (void)selectToolbarItemAtIndex:(NSUInteger)theIndex;
 
 @end

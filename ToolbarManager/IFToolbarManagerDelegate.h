@@ -66,6 +66,14 @@
 - (BOOL)toolbarShouldCenterToolbarItems:(NSToolbar *)theToolbar;
 
 /*!
+ Returns whether the manager should validate the given toolbar item (if the toolbar item is not validated). If the delegate does not respond
+ to this method, by default items with an associated pane will be validated.
+ @param theItem the item that should be validated
+ @return whether the item should be validated
+ */
+- (BOOL)toolbar:(NSToolbar *)theToolbar shouldValidateItem:(NSToolbarItem *)theItem;
+
+/*!
  Returns the label to use for a toolbar item with the given identifier, instead of using the identifier itself. The returned value will be
  used as both the label and the palette label (which are, in the majority of cases, the same anyway). If nil is returned, the manager will
  log the incident, and will use the identifier instead.
